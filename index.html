@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Expense Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="manifest" href="manifest.json" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>💰 Expense Tracker</h1>
+      <p class="subtitle">Theo dõi chi tiêu</p>
+    </header>
+
+    <main>
+      <form id="expense-form" class="card">
+        <div class="row">
+          <input id="desc" type="text" placeholder="Mô tả (ví dụ: Cà phê)" required />
+          <input id="amount" type="number" placeholder="Số tiền (VNĐ)" min="0" step="1" required />
+          <select id="category">
+            <option value="Ăn uống">Ăn uống</option>
+            <option value="Đi lại">Đi lại</option>
+            <option value="Giải trí">Giải trí</option>
+            <option value="Học tập">Học tập</option>
+            <option value="Khác">Khác</option>
+          </select>
+        </div>
+        <div class="row actions">
+          <button type="submit" class="btn">Thêm</button>
+          <button type="button" id="clear-btn" class="btn btn-ghost">Xóa hết</button>
+        </div>
+      </form>
+
+      <section class="card controls">
+        <div class="row">
+          <label> Lọc: </label>
+          <select id="filter-category">
+            <option value="all">Tất cả loại</option>
+            <option value="Ăn uống">Ăn uống</option>
+            <option value="Đi lại">Đi lại</option>
+            <option value="Giải trí">Giải trí</option>
+            <option value="Học tập">Học tập</option>
+            <option value="Khác">Khác</option>
+          </select>
+
+          <select id="filter-timeframe">
+            <option value="all">Tất cả thời gian</option>
+            <option value="today">Hôm nay</option>
+            <option value="month">Tháng này</option>
+          </select>
+
+          <button id="export-csv" class="btn btn-ghost">Export CSV</button>
+        </div>
+      </section>
+
+      <section class="card summary-chart">
+        <div class="summary">
+          <div>
+            <h3>Tổng chi tiêu</h3>
+            <p id="total">0 ₫</p>
+          </div>
+          <div class="chart-wrap">
+            <canvas id="chart" width="300" height="300"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <ul id="expense-list" class="list"></ul>
+    </main>
+
+    <footer>
+      <small></small>
+    </footer>
+  </div>
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="app.js"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').catch(()=>{/* ignore*/});
+    }
+  </script>
+</body>
+</html>
